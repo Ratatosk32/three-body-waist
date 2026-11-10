@@ -1,0 +1,10 @@
+masses (1, 1, 0.4)     trace   53.5037 (2^13 steps:   53.5037; paper 53.5), det 1.00000000, rotation  +145.99 deg (paper +146.0; geometric phase  +145.99): hyperbolic, PASS
+masses (1, 1, 0.5)     trace    8.1018 (2^13 steps:    8.1018; paper 8.102), det 1.00000000, rotation  -116.93 deg (paper -116.9; geometric phase  -116.93): hyperbolic, PASS
+masses (1, 1, 0.52)    trace    4.9877 (2^13 steps:    4.9877; paper 4.988), det 1.00000000, rotation   -89.01 deg (paper -89.0; geometric phase   -89.01): hyperbolic, PASS
+masses (1, 1, 0.53)    trace    3.8717 (2^13 steps:    3.8717; paper 3.872), det 1.00000000, rotation   -73.29 deg (paper -73.3; geometric phase   -73.29): hyperbolic, PASS
+masses (1, 1, 0.54)    trace    3.0171 (2^13 steps:    3.0171; paper 3.017), det 1.00000000, rotation   -56.09 deg (paper -56.1; geometric phase   -56.09): hyperbolic, PASS
+masses (1, 1, 0.55)    trace    2.4130 (2^13 steps:    2.4130; paper 2.413), det 1.00000000, rotation   -37.03 deg (paper -37.0; geometric phase   -37.03): hyperbolic, PASS
+masses (1, 1, 0.56)    trace    2.0677 (2^13 steps:    2.0677; paper 2.068), det 1.00000000, rotation   -15.51 deg (paper -15.5; geometric phase   -15.51): hyperbolic, PASS
+masses (1, 0.5, 0.3)   trace   22.0134 (2^13 steps:   22.0134; paper 22.01), det 1.00000000, rotation  -171.08 deg (paper -171.1; geometric phase  -171.08): hyperbolic, PASS
+masses (1, 0.2, 0.15)  trace   19.9428 (2^13 steps:   19.9428; paper 19.94), det 1.00000000, rotation  -168.99 deg (paper -169.0; geometric phase  -168.99): hyperbolic, PASS
+ALL PASS

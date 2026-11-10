@@ -1,0 +1,23 @@
+{
+  "title": "A waist at the binary collision: two-letter syzygy orbits of the strong-force three-body problem",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    {
+      "name": "Stavriianov, Oleksii",
+      "orcid": "0009-0002-8504-3626",
+      "affiliation": "Independent researcher"
+    }
+  ],
+  "description": "<p>For the planar three-body problem with the strong-force potential U = sum m_i m_j / r_ij^2 at zero energy and zero angular momentum, the solutions are the geodesics of Montgomery's Jacobi-Maupertuis metric on the shape sphere minus the three binary collisions. We compute the leading curvature at a binary collision, K = kappa_2 rho^2 with kappa_2 in closed form, the leading coefficient of Montgomery's curvature formula at the collision. When kappa_2 &gt; 0, i.e. m_k^2 (m_i + m_j)^3 &lt; m_i^2 m_j^2 M, the end has a waist and the two-letter syzygy class (ij) is realised by a collision-free solution, periodic up to rotation, whose action lies below the cylinder's circumference. At most one end can have a waist; for masses (1, 1, m) the threshold is m* = (1 + sqrt 65)/16. We compute these orbits (all hyperbolic), show that they are born from the cylinder at the threshold with constants in closed form, give a Gauss-Bonnet proof for equal masses, and reduce the converse to three conditions, the first proved by interval arithmetic and the other two checked numerically; a map of the mass triangle agrees with the criterion at all grid points. The record contains the paper, an independent verification supplement with certificates and saved outputs, and the research code. The searches, computations and scripts were carried out with the assistance of a large language model.</p>",
+  "keywords": [
+    "three-body problem",
+    "strong force",
+    "syzygy sequences",
+    "Jacobi-Maupertuis metric",
+    "closed geodesics",
+    "computer-assisted proof"
+  ],
+  "license": "cc-by-4.0",
+  "language": "eng"
+}

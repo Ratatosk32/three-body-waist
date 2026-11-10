@@ -1,0 +1,687 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.17}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{A waist at the binary collision: two-letter syzygy orbits\\ of the strong-force three-body problem}
+\author{Oleksii Stavriianov\thanks{Independent researcher. ORCID \href{https://orcid.org/0009-0002-8504-3626}{0009-0002-8504-3626}, \texttt{oleksii.stavriianov@gmail.com}}}
+\date{Version 1, November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Consider the planar three-body problem with the strong-force potential $U=\sum m_im_j/r_{ij}^2$ at zero energy and
+zero angular momentum. Modulo symmetries its solutions are the geodesics of Montgomery's Jacobi-Maupertuis metric on
+the shape sphere minus the three binary collisions, a pair of pants whose ends are asymptotic to cylinders. For equal
+masses the two-letter syzygy classes $\dots ijij\dots$, the loops around a single binary collision, carry no
+solution. We show that the Gaussian curvature at a binary collision is, to leading order, $K=\kappa_2\rho^2$ with
+\[
+  \kappa_2=-\frac{(m_i+m_j)\bigl[m_k^2(m_i+m_j)^3-m_i^2m_j^2M\bigr]}{4M\,m_i^4m_j^4},\qquad M=m_1+m_2+m_3,
+\]
+the leading coefficient of Montgomery's curvature formula at the collision. When $\kappa_2>0$, that is
+$m_k^2(m_i+m_j)^3<m_i^2m_j^2M$, the end has a \emph{waist}, a loop shorter than the asymptotic cylinder, and the class
+$(ij)$ is realised by a collision-free solution, periodic up to rotation, whose action lies below the cylinder's
+circumference. At most one end can have a waist, that of the two heaviest bodies; for masses $(1,1,m)$ the condition
+is $m<m^*=(1+\sqrt{65})/16\approx0.5664$. We compute these orbits at nine mass triples (all hyperbolic) and show that
+the class is born from the cylinder at $m^*$: the action of the minimiser satisfies
+$2\pi-S\ge35.12\,(m^*-m)^2(1+o(1))$, and the computed actions approach this rate. We give a short
+Gauss-Bonnet proof that no two-letter orbit exists for equal masses, and, for masses without a waist at any end, reduce
+the non-existence to three conditions on families of curves; we prove the first by interval arithmetic at five mass
+triples and on the family $(1,1,m)$, $0.567\le m\le1.07$, and check the other two numerically at five triples. A map
+of the whole mass triangle agrees with the waist criterion at all $741$ grid points. The orbits, the search, the threshold and the converse checks come with independent verification scripts.
+\end{abstract}
+
+\section{Introduction}
+
+Montgomery \cite{M05} showed that for the planar three-body problem with an attractive $1/r^2$ potential, zero energy
+and zero angular momentum, the solutions are, after reduction by rotations, translations and scaling, the geodesics of
+a complete Riemannian metric on the shape sphere with the three binary collision points removed: a pair of pants whose
+three ends are asymptotic to cylinders. For equal masses this metric has negative curvature except at the two Lagrange
+points; as a consequence every free homotopy class of loops contains at most one closed geodesic, the syzygy sequences
+give a complete symbolic dynamics, and the classes coded by two-letter sequences $\dots ijij\dots$, the loops around a
+single binary collision, are not realised by any bounded solution \cite[Thm.~3]{M05}. Montgomery also gave the
+curvature for arbitrary masses in closed form \cite[(7.12)-(7.13)]{M05} and showed that for most unequal masses it
+takes both signs near the Lagrange points \cite[Thm.~6]{M05}. (We use the numbering of the arXiv version of \cite{M05}.)
+
+The two-letter classes are the untied classes in the sense of Montgomery \cite{Mon98} (after Gordon
+\cite{Gor75,Gor77}). In the realisation results for the strong force they are the exceptions: every other class is
+realised, and the two-letter classes are stated not to be, without a restriction on the masses \cite[\S 2.1]{M05},
+\cite[\S 1]{MM15}. Near each end the curvature is negative whenever $\kappa_2<0$ (Lemma~\ref{lem:K}), in particular for
+equal masses, and the end then approaches its cylinder monotonically \cite[remark after (3.18)]{M05}; the proof of
+non-existence for equal masses \cite[\S 6.3]{M05} uses this monotone approach together with the isosceles reflections,
+which are isometries for equal masses. For the Newtonian problem, \cite[open question 6]{MM15} names planetary and
+earth-moon-sun type configurations as realising the two-letter classes. Problem 4 of the list \cite{ACS12}
+(Montgomery's) asks which syzygy sequences are realised in the Newtonian problem; its comment records, for the strong
+force with equal masses, the correspondence of the bounded collision-free orbits with the sequences in which no letter
+repeats and no pair of letters repeats forever \cite{M05}. With a waist the periodic sequence $\dots ijij\dots$ is
+realised (Theorem~\ref{thm:exist}), so that description fails whenever an end has a waist; whether it holds when no
+end has one is open (Section~\ref{sec:converse}).
+
+The present note studies the two-letter classes for unequal masses. The curvature tends to zero at each end; the
+question is the sign of the next term. We compute its leading coefficient $\kappa_2$ in closed form
+(Lemma~\ref{lem:K}). Its sign is the limit at the collision of Montgomery's sign function \cite[(7.13)]{M05}, a fact
+the supplement checks symbolically, and it has a direct geometric meaning: $\kappa_2>0$, i.e.\
+$m_k^2(m_i+m_j)^3<m_i^2m_j^2M$, exactly when the end has a waist, a loop shorter than its asymptotic cylinder, so that
+the approach of the end to its cylinder is not monotone. In that case the class $(ij)$ is realised
+(Theorem~\ref{thm:exist}). For equal masses $\kappa_2=-5/6$, in accordance with \cite{M05}. We describe the orbits
+numerically, show how they are born from the cylinder as the masses cross the threshold, and treat the converse:
+without a waist, the non-existence reduces to three conditions on families of curves; we prove the first by
+interval arithmetic at five mass triples and on the family $(1,1,m)$, $0.567\le m\le1.07$, and check the other two
+numerically at five triples. Numerical studies of the zero-angular-momentum strong-force problem, mostly for equal
+masses, include \cite{Moo93,DPS17}; the curvature of the same metric, and the cylinder at a collision for arbitrary
+masses, are studied in \cite[\S 3.3.1]{KS16}. Computer-assisted proofs now settle questions about periodic three-body
+orbits \cite{CGHLM24}. For the Newtonian problem with unequal masses large catalogues of
+periodic orbits have been computed \cite{LJL18}; the strong-force problem offers a setting in which part of such a
+picture can be proved.
+
+\section{Setting}
+
+Let $q_1,q_2,q_3\in\mathbb R^2$ with masses $m_i>0$, centre of mass at the origin, $U=\sum_{i<j}m_im_j/r_{ij}^2$,
+energy $E=0$ and angular momentum $L=0$. Since $U$ is homogeneous of degree $-2$, the Lagrange-Jacobi identity gives
+$\ddot I=4E=0$ for $I=\sum m_i|q_i|^2$, so a bounded solution has constant $I$, which we normalise to $1$.
+
+\paragraph{Shape sphere.} With mass-weighted Jacobi vectors
+$z_1=\sqrt{\mu_{12}}\,(q_2-q_1)$ and $z_2=\sqrt{\mu_3}\,\bigl(q_3-\tfrac{m_1q_1+m_2q_2}{m_1+m_2}\bigr)$, where
+$\mu_{12}=m_1m_2/(m_1+m_2)$ and $\mu_3=m_3(m_1+m_2)/M$, we have $I=|z_1|^2+|z_2|^2$, and the Hopf map
+$w=(|z_1|^2-|z_2|^2,\,2z_1\bar z_2)\in S^2$ identifies shapes (triangles up to rotation and scale) with points of the
+unit sphere. The kinetic metric descends to the round sphere of radius $1/2$, $g_0=\tfrac14 g_{S^2}$. Each $r_{ij}^2$ is
+an affine function of $w$; for instance $r_{12}^2=(1+w_1)/(2\mu_{12})$. The equator $w_3=0$ consists of the collinear
+shapes; it is cut by the three collision points $C_{12},C_{13},C_{23}$ into three arcs, arc $k$ being the shapes with
+body $k$ in the middle.
+
+\paragraph{The metric.} Solutions with $E=0$, $L=0$, $I\equiv1$ project to geodesics of $g=2U\,g_0$ on
+$P=S^2\setminus\{C_{12},C_{13},C_{23}\}$, and conversely \cite{M05}. The action $\int 2T\,dt$ of a solution equals
+the $g$-length of its projection; $g$ is twice the metric of \cite[(3.9a)]{M05}, which is why lengths are
+actions, and our $\rho$ below is the unit-sphere distance. Near $C_{ij}$ the metric is asymptotic to a Euclidean cylinder of circumference
+$c_{ij}=2\pi\sqrt{2\mu_{ij}m_im_j}$, $\mu_{ij}=m_im_j/(m_i+m_j)$ \cite[\S 3]{M05}; Lemma~\ref{lem:E}
+below gives the precise form. A closed geodesic gives a solution that
+is periodic up to a rotation of the whole configuration.
+
+\paragraph{Syzygies.} The syzygy sequence of a curve lists which body is in the middle at each crossing of the
+equator. Cancelling repeated letters (stutters) reduces it; free homotopy classes of loops in $P$ correspond to
+reduced periodic sequences up to cyclic shift, the reduced sequence of a closed curve being that of its class
+\cite{M05}. The two-letter class $(ij)$, the loop around $C_{ij}$, has the sequence $\dots ijij\dots$.
+
+\section{The ends and the curvature at a binary collision}
+
+Fix the collision $C_{12}$; the other two are treated alike. Let $\rho$ be the unit-sphere distance from $C_{12}$ and
+$\chi$ the angle about it. At $I=1$, $r_{12}^2=\sin^2(\rho/2)/\mu_{12}$, so
+\[
+  U=\frac{\mu_{12}m_1m_2}{\sin^2(\rho/2)}+V,
+\]
+where $V$, the potential of the pairs $13$ and $23$, is smooth near $C_{12}$ with value $V_0=m_3^2(m_1+m_2)^2/M$ there:
+at the collision configuration body $3$ is at distance $D$ from the coincident pair with $\mu_3D^2=1$, so
+$V_0=(m_1+m_2)m_3/D^2$. We write $R^2=2\mu_{12}m_1m_2$, so that $c_{12}=2\pi R$.
+
+\begin{lemma}[the end in conformal coordinates]\label{lem:E}
+With $u=-\log\tan(\rho/2)$,
+\[
+  g=R^2e^{2\psi}\,(du^2+d\chi^2),\qquad e^{2\psi}=\cos^2(\rho/2)\,(1+\varepsilon),\qquad
+  \varepsilon=\frac{\sin^2(\rho/2)\,V}{\mu_{12}m_1m_2}.
+\]
+The function $\psi$ is smooth in $\zeta=\tan(\rho/2)e^{i\chi}$ near $\zeta=0$, $\psi=|\zeta|^2h(\zeta)$ with $h$ smooth and
+$h(0)=\tfrac12\bigl(V_0/(\mu_{12}m_1m_2)-1\bigr)$. In particular $\psi$ and all its derivatives in $(u,\chi)$ are
+$O(e^{-2u})$, uniformly in $\chi$.
+\end{lemma}
+
+\begin{proof}
+$g_0=\tfrac14(d\rho^2+\sin^2\rho\,d\chi^2)=\tfrac14\sin^2\rho\,(du^2+d\chi^2)$ since $du=-d\rho/\sin\rho$, and
+$\tfrac12U\sin^2\rho=2\mu_{12}m_1m_2\cos^2(\rho/2)(1+\varepsilon)$. The coordinate $\zeta$ is the stereographic coordinate
+centred at $C_{12}$, $\sin^2(\rho/2)=|\zeta|^2/(1+|\zeta|^2)$ and $\cos^2(\rho/2)=1/(1+|\zeta|^2)$, so
+$2\psi=-\log(1+|\zeta|^2)+\log(1+\varepsilon)$ is $|\zeta|^2$ times a smooth function with the stated value at $0$. Since
+$|\zeta|=e^{-u}$, $\partial_u=-(\xi\partial_\xi+\eta\partial_\eta)$ and $\partial_\chi=\xi\partial_\eta-\eta\partial_\xi$
+($\zeta=\xi+i\eta$), and both operators map $|\zeta|^2\cdot(\text{smooth})$ into itself.
+\end{proof}
+
+Thus each end is a half-cylinder of circumference $c_{12}$ up to an exponentially small conformal factor; in particular
+$g$ is complete. Two consequences are used below. A loop in $\{u\ge u_0\}$ winding once around the end has length at
+least $c_{12}\,e^{-Ce^{-2u_0}}$, and an arc joining the levels $u_1<u_2$ has length at least
+$R\,e^{-Ce^{-2u_1}}(u_2-u_1)$, where $|\psi|\le Ce^{-2u}$ as in the lemma. The loops $u=\Lambda$ have total geodesic curvature $\oint\partial_u\psi\,d\chi=O(e^{-2\Lambda})$.
+Finally, the reflection $w_3\mapsto-w_3$ is an isometry of $g$ for all masses (each $r_{ij}^2$ depends on $w_1,w_2$
+only), so the three arcs of the equator are geodesics.
+
+\begin{lemma}\label{lem:K}
+The Gaussian curvature of $g$ satisfies
+\begin{align*}
+  K&=\kappa_2\,\rho^2+O(\rho^3),\\
+  \kappa_2&=\frac{1}{4\mu_{12}m_1m_2}\Bigl(1-\frac{V_0}{\mu_{12}m_1m_2}\Bigr)
+         =-\frac{(m_1+m_2)\bigl[m_3^2(m_1+m_2)^3-m_1^2m_2^2M\bigr]}{4M\,m_1^4m_2^4},
+\end{align*}
+independently of the direction.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:E}, $K=-R^{-2}e^{-2\psi}(\psi_{uu}+\psi_{\chi\chi})$ and $\psi=h(0)e^{-2u}+O(e^{-3u})$ with derivatives,
+so $K=-4h(0)R^{-2}e^{-2u}+O(e^{-3u})$. Since $e^{-2u}=\tan^2(\rho/2)=\rho^2/4+O(\rho^4)$, this is
+$K=-h(0)\rho^2/R^2+O(\rho^3)$, which is the first expression; the second follows from
+$\mu_{12}m_1m_2=m_1^2m_2^2/(m_1+m_2)$ and the value of $V_0$. The direction does not enter because the leading term
+of $V$ at $C_{12}$ is the constant $V_0$: the third body is equidistant from the coincident pair.
+\end{proof}
+
+\begin{remark}
+A second derivation works on the unit sphere. Writing $g=e^{2\phi}g_{S^2}$ with $e^{2\phi}=U/2$, one has
+$K=e^{-2\phi}(1-\Delta_S\phi)=(4-2\Delta_S\log U)/(2U)$, and $\Delta_S\log(1-\cos\rho)=-1$ exactly; expanding $\log U$ gives
+the same $\kappa_2$. The $O(\rho^3)$ term comes from $2\sin\rho\,\partial_\rho V$ and depends on the direction. At equal
+masses $\kappa_2=-5/6$. Exact rational expansions at ten mass triples, and numerical checks at the five triples of
+Section~\ref{sec:converse} and its control, agree with the formula (supplement).
+\end{remark}
+
+\begin{corollary}[waist criterion]\label{cor:waist}
+The conditions (a) $m_3^2(m_1+m_2)^3<m_1^2m_2^2M$, (b) $V_0<\mu_{12}m_1m_2$, (c) $\kappa_2>0$ are equivalent. The round
+loops $\rho=\mathrm{const}$ about $C_{12}$ have length
+\[
+  \ell(\rho)=c_{12}\cos(\rho/2)\Bigl\langle\sqrt{1+\varepsilon}\Bigr\rangle_\chi
+  =c_{12}\Bigl[1+\frac{\rho^2}{8}\Bigl(\frac{V_0}{\mu_{12}m_1m_2}-1\Bigr)\Bigr]+O(\rho^3),
+\]
+with $\langle\cdot\rangle_\chi$ the mean over $\chi$. Hence if $\kappa_2>0$ they are shorter than the cuff for small $\rho$
+(the end has a \emph{waist}), and if $\kappa_2<0$ they are longer. For masses $(1,1,m)$ condition (a) reads $8m^2-m-2<0$,
+i.e.\ $m<m^*=(1+\sqrt{65})/16$.
+\end{corollary}
+
+\begin{proof}
+The equivalence of (a), (b), (c) is algebra. By Lemma~\ref{lem:E} the length is $\oint Re^{\psi}d\chi$, and
+$\varepsilon=\rho^2V_0/(4\mu_{12}m_1m_2)+O(\rho^3)$; the term of $V$ linear in the direction contributes only at
+order $\rho^3$. Numerically, the configuration-space loop lengths agree with this expansion at fourteen mass triples,
+including $m=0.566$ and $0.567$ on the two sides of $m^*$ (supplement).
+\end{proof}
+
+At $\kappa_2=0$ ($m=m^*$ for masses $(1,1,m)$) the leading order decides nothing; we leave that single case aside.
+
+\begin{proposition}\label{prop:one}
+At most one end has a waist, and it is the binary of the two heaviest bodies.
+\end{proposition}
+
+\begin{proof}
+Waists at the ends $12$ and $13$ would give $m_3^2(m_1+m_2)^3<m_1^2m_2^2M$ and $m_2^2(m_1+m_3)^3<m_1^2m_3^2M$, hence
+$(m_1+m_2)^3(m_1+m_3)^3<m_1^4M^2$. But $(m_1+m_2)(m_1+m_3)=m_1M+m_2m_3>m_1M$, so $m_1^3M^3<m_1^4M^2$, i.e.\ $M<m_1$,
+impossible. If the end $ij$ has a waist and $m_k\ge m_i$, write $s=m_i+m_j$; then $m_k^2s^3<m_i^2m_j^2(s+m_k)$, and
+$(m_i/m_k)^2(s+m_k)\le s+m_i$ for $m_i\le m_k$, so $s^3<m_j^2(s+m_i)$; but $s^3-m_j^2(s+m_i)=m_i(m_i^2+3m_im_j+m_j^2)>0$.
+So $m_k<m_i$, and likewise $m_k<m_j$.
+\end{proof}
+
+\section{Existence}
+
+\begin{theorem}\label{thm:exist}
+If the end $ij$ has a waist, the two-letter class $(ij)$ contains a closed geodesic of $g$ of length
+$L^*=\inf\{\text{length of loops in }(ij)\}<c_{ij}$. Hence there is a collision-free solution with $E=0$, $L=0$, $I=1$,
+periodic up to a rotation, realising the class $(ij)$, with action $L^*<c_{ij}$.
+\end{theorem}
+
+\begin{proof}
+By the waist, $L^*<c_{ij}$. Take loops $\gamma_n$ in the class, parametrised proportionally to arc length, with lengths
+$L_n\downarrow L^*$ and $L_n<L_1<c_{ij}$. Let $u_{ij},u_{ik},u_{jk}$ be the coordinates of Lemma~\ref{lem:E} at the three
+ends. No loop of the class lies in an end $\{u_{ik}\ge u_0\}$: such an end is an annulus whose loops are powers of the
+class $(ik)$, and the three boundary classes of the pair of pants are distinct and primitive. So each $\gamma_n$ meets
+$\{u_{ik}\le u_0\}$, and by the bound on arcs it reaches at most depth $u_0+O(L_1)$ in that end; likewise in the end
+$jk$. In the end $ij$, a loop of the class in $\{u_{ij}\ge\Lambda\}$ winds once and has length at least
+$c_{ij}e^{-Ce^{-2\Lambda}}>L_1$ for $\Lambda$ large, so each $\gamma_n$ meets $\{u_{ij}\le\Lambda\}$ and again goes at most a bounded
+depth further. Hence all $\gamma_n$ lie in one compact set $Q\subset P$. They are equi-Lipschitz, so by Arzel\`a-Ascoli
+a subsequence converges uniformly to a loop $\gamma\subset Q$ of length at most $L^*$; once $\gamma_n$ is uniformly
+closer to $\gamma$ than the injectivity radius of $Q$, the two are freely homotopic, so $\gamma$ is in the class and has
+length $L^*$. A shortest loop in a non-trivial free homotopy class is locally length minimising, hence a smooth
+closed geodesic.
+
+For the solution: with $r=\sqrt I$ the kinetic metric on the configurations with $L=0$, modulo rotations, is
+$dr^2+r^2g_0$, and the Jacobi-Maupertuis metric at $E=0$ is $2(U/r^2)(dr^2+r^2g_0)=2U\,(d\log r)^2+g$ with $U$ the
+shape potential. It does not depend on $\log r$, so at zero conjugate momentum ($\dot I=0$) its geodesics are the curves
+with $r$ constant whose shape is a $g$-geodesic. After the time change $dt=ds/(2U)$ these are solutions with $E=0$ and
+$I=1$, and the horizontal lift through the Hopf map gives $L=0$; the lift of a closed curve closes up to a rotation. The
+solution is collision-free because $\gamma$ avoids the three binary collisions and $I=1$ excludes the triple
+collision. Its action $\int2T\,dt$ is the $g$-length $L^*$.
+\end{proof}
+
+\section{The orbits}\label{sec:orbits}
+
+We computed the orbits by a one-parameter reversible search: a syzygy with body $1$ between bodies $2$ and $3$, all
+velocities perpendicular to the line, constrained by $P=0$, $L=0$, $E=0$, with the position of body $1$ on the segment
+as the parameter; a root of the along-line shape velocity at the next syzygy (body $2$ in the middle) closes the orbit
+by reversibility after twice that time. Table~\ref{tab:orbits} lists the orbits found; for $m=0.57$, $0.58$, $0.59$,
+$0.60$, $0.65$, $0.75$ (masses $(1,1,m)$) and for $(1,0.5,0.45)$, $(1,0.2,0.19)$ and the controls $(1,0.3,0.5)$,
+$(0.5,0.3,1)$ (no waist at the end $12$; both have one at the end $13$ of their two heaviest bodies, as
+Proposition~\ref{prop:one} requires) no root exists, consistent with Corollary~\ref{cor:waist} and
+Proposition~\ref{prop:one}; all nineteen cases are rerun in the supplement. The search sees only orbits with this
+reversing symmetry; orbits without it are the
+subject of Section~\ref{sec:converse}. The class $(12)$ is primitive, so each orbit runs once around $C_{12}$ and its
+syzygy word per period is $12$. Times are for $I=1$; the action is scale invariant.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+masses & action $S$ & cuff $c_{12}$ & period & trace & rotation \\
+\midrule
+$(1,1,0.40)$ & $5.6342554918$ & $2\pi$ & $1.71728$ & $53.50$ & $+146.0^\circ$ \\
+$(1,1,0.50)$ & $6.1597496557$ & $2\pi$ & $1.40783$ & $8.102$ & $-116.9^\circ$ \\
+$(1,1,0.52)$ & $6.2197385980$ & $2\pi$ & $1.18199$ & $4.988$ & $-89.0^\circ$ \\
+$(1,1,0.53)$ & $6.2429769247$ & $2\pi$ & $1.02557$ & $3.872$ & $-73.3^\circ$ \\
+$(1,1,0.54)$ & $6.2613331277$ & $2\pi$ & $0.82939$ & $3.017$ & $-56.1^\circ$ \\
+$(1,1,0.55)$ & $6.2744359523$ & $2\pi$ & $0.58067$ & $2.413$ & $-37.0^\circ$ \\
+$(1,1,0.56)$ & $6.2817961704$ & $2\pi$ & $0.25915$ & $2.068$ & $-15.5^\circ$ \\
+$(1,0.5,0.30)$ & $3.4385697805$ & $2\pi/\sqrt3$ & $2.88203$ & $22.01$ & $-171.1^\circ$ \\
+$(1,0.2,0.15)$ & $1.5489069692$ & $2\pi/\sqrt{15}$ & $6.38024$ & $19.94$ & $-169.0^\circ$ \\
+\bottomrule
+\end{tabular}
+\caption{Closed orbits in the class $(12)$; syzygy word $12$ per period, shape closure $7\cdot10^{-12}$ to
+$2\cdot10^{-9}$. Trace: of the linearised return map of the closed geodesic; rotation: of the whole configuration per
+period, counterclockwise positive, in $(-180^\circ,180^\circ]$ (so $+146.0^\circ$ is the same as $-214.0^\circ$).}
+\label{tab:orbits}
+\end{table}
+
+\paragraph{Stability.} The normal Jacobi equation $J''+KJ=0$ along each closed geodesic gives the $2\times2$
+linearised return map of the geodesic flow on the shape sphere, i.e.\ of the reduced flow; the full relative periodic
+orbit has in addition the trivial multipliers of the symmetries, the integrals and the dilation. The trace
+(Table~\ref{tab:orbits}) exceeds $2$ for all nine orbits, so they are hyperbolic as closed geodesics of $g$, with multiplier
+$\lambda=(\mathrm{tr}+\sqrt{\mathrm{tr}^2-4})/2$ from $53.5$ at $m=0.40$ down to $1.30$ at $m=0.56$, tending to $1$ as
+$m\to m^*$. This is the behaviour of a non-degenerate closed geodesic of index $0$ on an orientable surface
+\cite{Kli78}, although $K$ is positive on part of every orbit (its maximum on the orbit is $0.003$ at $m=0.56$ and
+$0.92$ at $(1,0.2,0.15)$). The rotation per period is the geometric phase of the shape curve \cite{Mon96}: half the
+solid angle it encloses on the unit shape sphere, which the supplement checks against the rotation to $0.05^\circ$.
+
+\paragraph{Birth from the cylinder.} For masses $(1,1,m)$ the numerical threshold lies in $(0.56,0.57)$, containing
+$m^*=0.56639$. The round loops have length $\ell(\rho)=c_{12}\bigl[1-A_2\rho^2+A_4\rho^4+O(\rho^6)\bigr]$, the odd orders
+averaging out, with $A_2=(1-v)/8=\mu_{12}m_1m_2\,\kappa_2/2$, $v=V_0/(\mu_{12}m_1m_2)$, and
+\[
+  A_4=\frac{(1-v)(1+3v)}{384}+\frac{m_3^3(m_1+m_2)^3}{32M^2m_1^2m_2^2}.
+\]
+Indeed $\ell=c_{12}\cos(\rho/2)\langle\sqrt{1+\varepsilon}\rangle_\chi$ (Corollary~\ref{cor:waist}), the mean of $V$
+over the circle is $V_0+\tfrac{\rho^2}{4}\Delta_SV(C_{12})+O(\rho^4)$, and since $r_{13}^2$ and $r_{23}^2$ are affine
+in $w$ one finds $\Delta_SV(C_{12})=V_0+m_3\mu_3^2$; expanding to order $\rho^4$ gives the formula. On the threshold curve $v=1$, so
+\[
+  A_4=\frac{m_3^3(m_1+m_2)^3}{32M^2m_1^2m_2^2}>0
+\]
+for all masses: the second coefficient is positive along the whole boundary of the waist region. For masses $(1,1,m)$,
+$A_4(m^*)=m^{*3}/(4(2+m^*)^2)=0.0068967$. Minimising over $\rho$, the shortest round loop has
+\begin{align*}
+  c_{12}-\min_\rho\ell&=\frac{c_{12}A_2^2}{4A_4}\bigl(1+o(1)\bigr)=C\,(m^*-m)^2\bigl(1+o(1)\bigr),\\
+  C&=\frac{c_{12}A_2'(m^*)^2}{4A_4(m^*)}=\frac{\pi(4+m^*)^2}{32\,m^{*5}}=35.1205,
+\end{align*}
+at $\rho^2\approx A_2/(2A_4)\approx28.5\,(m^*-m)$. The minimiser of Theorem~\ref{thm:exist} has length
+$L^*\le\min_\rho\ell$, so $2\pi-L^*\ge C\,(m^*-m)^2(1+o(1))$; that the computed symmetric orbits are the minimisers we
+have not proved, but their actions satisfy $S<\min_\rho\ell$ at all nine masses (by $10^{-6}$ at $m=0.56$, supplement).
+Numerically the ratios $(2\pi-S)/(m^*-m)^2$ from Table~\ref{tab:orbits} are $28.00$,
+$29.48$, $30.36$, $31.37$, $32.57$, $34.01$ for $m=0.50$, $0.52$ to $0.56$, and those of the shortest round loops are
+$31.9$, $33.4$, $34.2$, $34.7$, $34.9$ at $m^*-m=0.02$, $0.01$, $0.005$, $0.0025$, $0.00125$: both rise towards $C$
+(Figure~\ref{fig:birth}). As $m\to m^*$ the orbit shrinks into the end (Figure~\ref{fig:shape}), with the period and the
+binary separation tending to zero. The sign $A_4>0$ is what makes the shortest round loop leave the cuff continuously
+at $m^*$; the search finds no orbit of the class above $m^*$ (no fold).
+
+\paragraph{The motion.} At $L=0$ the binary axis and the line from the binary's centre of mass to body $3$ turn in
+opposite senses (Figure~\ref{fig:plane}): over one period by $+344.5^\circ$ and $-15.5^\circ$ at $m=0.56$, and by
+$+146.0^\circ$ and $-214.0^\circ$ at $m=0.40$. The reason is the angular momentum: a circular binary of the $1/r^2$
+problem with zero energy has angular momentum exactly $\sqrt{2\mu_{12}m_1m_2}=R$, whatever its size, so at $L=0$ the
+outer motion carries $-R$, and near the threshold the line to body $3$ turns back by about $R$ times the period
+($14.8^\circ$ predicted, $15.5^\circ$ observed at $m=0.56$). Near the threshold the motion is hierarchical: a tight binary spins about
+once per period while the third body swings slightly back (binary separation $0.29$, distance of body $3$ from the
+binary's centre $1.48$ at $m=0.56$). Away from it the two distances are comparable ($1.05$ to $1.13$ against $1.05$ to
+$1.16$ at $m=0.40$). The cylinder end corresponds to the circular binary motions of the $1/r^2$ two-body problem, which
+have zero energy at every radius; the third body's potential $V_0$ competes with the factor $\cos(\rho/2)$ by which the
+sphere $I=1$ shrinks the loops, and the waist appears when $V_0<\mu_{12}m_1m_2$. In terms of angular momentum: a pair
+with reduced mass $\mu$ in the potential $k/r^2$ at zero energy reaches collision unless its angular momentum is at
+least $\sqrt{2\mu k}$.
+The binary on the cylinder sits exactly at its critical value $R$, and the outer pair, body $3$ against the coincident
+binary ($\mu_3$, $k=m_3(m_1+m_2)$), has critical value $\sqrt{2\mu_3m_3(m_1+m_2)}=\sqrt{2V_0}$. At $L=0$ the outer motion
+carries $-R$, and the criterion $V_0<\mu_{12}m_1m_2$ reads $\sqrt{2V_0}<R$: the waist exists exactly when the angular
+momentum the binary forces on the outer motion exceeds the outer pair's own critical value. In Euler's two-centre problem the
+corresponding orbits are the planetary orbits of \cite{DM16}, with fixed centres; for the Newtonian three-body problem
+compare \cite[open question 6]{MM15}.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.5\textwidth, axis equal image, xmin=-1.6, xmax=1.6, ymin=-1.5, ymax=1.5,
+  xlabel={$w_2/(1-w_1)$}, ylabel={$w_3/(1-w_1)$}, tick label style={font=\scriptsize},
+  legend style={font=\scriptsize, at={(1.03,0.5)}, anchor=west}]
+\addplot[gray, thin, forget plot] coordinates {(-1.6,0) (1.6,0)};
+\addplot[black, thick] table {fig/shape_0.40.dat};
+\addplot[blue, thick] table {fig/shape_0.50.dat};
+\addplot[teal, thick] table {fig/shape_0.53.dat};
+\addplot[red, thick] table {fig/shape_0.56.dat};
+\addplot[only marks, mark=*, mark size=1.5pt] coordinates {(0,0)};
+\legend{$m=0.40$, $m=0.50$, $m=0.53$, $m=0.56$, $C_{12}$}
+\end{axis}
+\end{tikzpicture}
+\caption{The orbits of masses $(1,1,m)$ on the shape sphere, in the stereographic chart centred at $C_{12}$; the
+horizontal axis is the equator (collinear shapes). As $m\to m^*$ the orbit contracts into the end.}
+\label{fig:shape}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=3 by 1, horizontal sep=0.9cm}, width=0.36\textwidth, axis equal image,
+  tick label style={font=\scriptsize}, title style={font=\small}]
+\nextgroupplot[title={$(1,1,0.40)$}]
+\addplot[black, line width=1.6pt, opacity=0.45] table[x=x1, y=y1] {fig/plane_040.dat};
+\addplot[blue, dashed] table[x=x2, y=y2] {fig/plane_040.dat};
+\addplot[red] table[x=x3, y=y3] {fig/plane_040.dat};
+\nextgroupplot[title={$(1,1,0.56)$}]
+\addplot[black, line width=1.6pt, opacity=0.45] table[x=x1, y=y1] {fig/plane_056.dat};
+\addplot[blue, dashed] table[x=x2, y=y2] {fig/plane_056.dat};
+\addplot[red] table[x=x3, y=y3] {fig/plane_056.dat};
+\nextgroupplot[title={$(1,0.2,0.15)$}]
+\addplot[black, line width=1.6pt, opacity=0.45] table[x=x1, y=y1] {fig/plane_asym.dat};
+\addplot[blue, dashed] table[x=x2, y=y2] {fig/plane_asym.dat};
+\addplot[red] table[x=x3, y=y3] {fig/plane_asym.dat};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Three periods in the plane, centre of mass at the origin: body $1$ grey (wide), body $2$ blue (dashed),
+body $3$ red; at $(1,1,0.56)$ the paths of bodies $1$ and $2$ nearly coincide. The
+configuration returns rotated by the angle of Table~\ref{tab:orbits}.}
+\label{fig:plane}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.48\textwidth, xmode=log, xlabel={$m^*-m$}, ylabel={$(2\pi-S)/(m^*-m)^2$},
+  tick label style={font=\scriptsize}, legend style={font=\scriptsize}, legend pos=south west, ymin=24, ymax=36.5,
+  xmin=0.001, xmax=0.1]
+\addplot[only marks, mark=*, mark size=1.5pt] table {fig/birth_ratio_orbits.dat};
+\addplot[blue, mark=o, mark size=1.5pt] table {fig/birth_ratio_loops.dat};
+\addplot[red, thick, domain=0.001:0.1] {35.12};
+\legend{orbits, shortest round loops, $C=35.12$}
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[width=0.46\textwidth, axis equal image, hide axis, xmin=-0.05, xmax=1.05, ymin=-0.08, ymax=0.92]
+\addplot[black] table {fig/triangle.dat};
+\addplot[fill=red!30, draw=red] table {fig/waist_12.dat};
+\addplot[fill=red!30, draw=red] table {fig/waist_13.dat};
+\addplot[fill=red!30, draw=red] table {fig/waist_23.dat};
+\addplot[blue, dashed] table {fig/slice.dat};
+\addplot[only marks, mark=*, mark size=1.3pt, blue] table {fig/mstar.dat};
+\node[font=\scriptsize, anchor=north] at (axis cs:0,0) {$m_1$};
+\node[font=\scriptsize, anchor=north] at (axis cs:1,0) {$m_2$};
+\node[font=\scriptsize, anchor=south] at (axis cs:0.5,0.866) {$m_3$};
+\end{axis}
+\end{tikzpicture}
+\caption{Left: the birth of the orbit from the cylinder, masses $(1,1,m)$: the ratio $(2\pi-S)/(m^*-m)^2$ for the
+orbits of Table~\ref{tab:orbits} and for the shortest round loops about $C_{12}$, rising towards the constant $C$. Right: the mass triangle
+($m_1+m_2+m_3=1$); shaded, the masses for which the end of the two bodies on the nearby edge has a waist
+(Corollary~\ref{cor:waist}); the regions are disjoint (Proposition~\ref{prop:one}). Dashed, the masses $(1,1,m)$; dot,
+$m=m^*$.}
+\label{fig:birth}
+\end{figure}
+
+\section{The converse}
+
+\subsection{Equal masses}
+
+\begin{lemma}\label{lem:GB}
+If $\gamma$ is a simple closed geodesic in the class $(ij)$, the region $A$ between $\gamma$ and the end $ij$ has
+$\int_A K\,dA=0$.
+\end{lemma}
+
+\begin{proof}
+A simple closed curve on the sphere minus three points separates the points as $0|3$ or $1|2$, so it is
+null-homotopic or isotopic to the loops around one puncture; hence $\gamma$ is isotopic to the loops
+$u_{ij}=\mathrm{const}$ and $A$ is an annulus running into the end. Cut it at $u_{ij}=\Lambda$ and apply
+Gauss-Bonnet to the compact annulus (Euler characteristic $0$): $\gamma$ has zero geodesic curvature and the loop
+$u_{ij}=\Lambda$ has total geodesic curvature $O(e^{-2\Lambda})$ by Lemma~\ref{lem:E}. The integral converges absolutely, as
+$K\,dA=O(e^{-2u})\,du\,d\chi$ in the end.
+\end{proof}
+
+\begin{corollary}[{\cite[Thm.~3]{M05}}]
+For equal masses no two-letter class is realised.
+\end{corollary}
+
+\begin{proof}
+Here $K\le0$, with equality only at the two Lagrange points \cite{M05}. Let $\gamma$ be a closed geodesic in the class
+$(ij)$, $\varphi$ the corresponding deck transformation of the universal cover $X$ of $(P,g)$, and
+$\hat P=X/\langle\varphi\rangle$ the annular cover. $X$ is complete, simply connected and has $K\le0$, so its geodesics
+are embedded lines and a lift $\tilde\gamma$ of $\gamma$ is an axis of $\varphi$ \cite[II.6]{BH99}. The preimage in $X$
+of its image $\hat\gamma\subset\hat P$ is $\bigcup_k\varphi^k\tilde\gamma=\tilde\gamma$, so $\hat\gamma$ is a simple
+closed geodesic in the core class of $\hat P$. The end $ij$ lifts isometrically to $\hat P$, its fundamental group being
+$\langle\varphi\rangle$; $\hat\gamma$ cuts $\hat P$ into two annuli, one running into this end, and the proof of
+Lemma~\ref{lem:GB} applies there word for word: $\int K\,dA=0$ over a region where $K\le0$, with $K<0$ off the discrete
+preimage of the Lagrange points, which is impossible.
+\end{proof}
+
+\subsection{Unequal masses without a waist}\label{sec:converse}
+
+Throughout this subsection no end has a waist: $\kappa_2<0$ at all three collisions, so by Lemma~\ref{lem:K} the
+curvature is negative in a punctured neighbourhood of each collision. (By Proposition~\ref{prop:one} a waist can occur
+at one end only; when it occurs at an end other than $12$, the class $(12)$ is not covered by what follows.) We reduce the
+non-existence of a closed geodesic in the class $(12)$ to three conditions, each a check on one-parameter families of
+curves.
+
+\begin{lemma}[maximum principle]\label{lem:F}
+Let $\tau$ be a $C^2$ function with $\nabla\tau\ne0$ on an open set $\Omega$, whose level sets have geodesic curvature
+strictly positive towards increasing $\tau$; equivalently $\mathrm{Hess}\,\tau(v,v)<0$ for $v\ne0$ tangent to a level
+set, the geodesic curvature being $-\mathrm{Hess}\,\tau(v,v)/|\nabla\tau|$ for unit $v$. If a
+geodesic $\gamma$ is tangent at $\gamma(0)\in\Omega$ to the level set through it, then $\tau(\gamma(t))<\tau(\gamma(0))$
+for all small $t\ne0$. In particular no geodesic arc in $\Omega$ has an interior local minimum of $\tau$, and no geodesic
+touches a level set from the side of increasing $\tau$.
+\end{lemma}
+
+\begin{proof}
+$(\tau\circ\gamma)'(0)=0$ and $(\tau\circ\gamma)''(0)=\mathrm{Hess}\,\tau(\gamma'(0),\gamma'(0))<0$.
+\end{proof}
+
+\paragraph{Conditions.} Let $\sigma_0$ be a smooth simple loop around $C_{12}$, bounding a disc $D\ni C_{12}$ that
+contains no other collision, with geodesic curvature positive towards $C_{12}$ (convex), and disjoint from arc $3$.
+Let $\Omega_0=P\setminus\overline D$.
+\begin{itemize}
+\item[(I)] $K\le0$ on $\Omega_0$.
+\item[(II)] There are smooth convex loops $\sigma_0\supset\sigma_1\supset\dots\supset\sigma_N$ around $C_{12}$, each
+inside the previous one, and times $T_k>0$, with the following property. For each $k<N$ the normal map
+$\Phi_k(s,t)=\exp(t\,n(s))$, $s\in\sigma_k$, $0\le t\le T_k$, $n$ the inward unit normal, is injective; along every
+normal the Jacobi field $G''=-KG$, $G(0)=1$, $G'(0)=-k_g(s)$ has $G>0$ and $G'<0$ on $[0,T_k]$ (the parallels are
+immersed and convex); and the parallel $\Phi_k(\cdot,T_k)$ lies inside $\sigma_{k+1}$. The last loop $\sigma_N$ lies
+in a cap $\rho<\rho_N$ about $C_{12}$ on which the round circles are convex towards $C_{12}$ (condition C:
+$2\cot\rho+\partial_\rho\log U>0$).
+\item[(III)] No stutter: no geodesic arc lies, apart from its two endpoints, in an open hemisphere and has both
+endpoints on the same arc of the equator.
+\end{itemize}
+Near $C_{12}$ condition C holds automatically when $\kappa_2<0$: half its left side is the $\rho$-derivative of the
+logarithm of the length density of the circle $\rho=\mathrm{const}$, which by Corollary~\ref{cor:waist} is
+\[
+  \tfrac12\bigl(2\cot\rho+\partial_\rho\log U\bigr)=\frac\rho4\Bigl(\frac{V_0}{\mu_{12}m_1m_2}-1\Bigr)+O(\rho^2).
+\]
+
+\begin{proposition}\label{prop:G}
+Under (I), (II), (III) the class $(12)$ contains no closed geodesic.
+\end{proposition}
+
+\begin{proof}
+Let $\gamma$ be a closed geodesic in the class $(12)$.
+
+\emph{Syzygies.} The sequence of $\gamma$ is not empty, the class being non-trivial. A stutter in it is an arc as
+excluded in (III), so the sequence is reduced; a reduced sequence determines the free homotopy class and conversely \cite{M05}, so it is $1212\dots$ and
+$\gamma$ does not cross arc $3$. It does not touch it either, since arc $3$ is a geodesic.
+
+\emph{$\gamma$ lies in $\overline D$.} The closure of $\Omega_0$ in $S^2$ is a disc containing $C_{13}$, $C_{23}$ and arc
+$3$. A geodesic tangent to $\sigma_0$ stays locally outside $D$ (Lemma~\ref{lem:F} for the distance to $\sigma_0$), so
+$\gamma$ crosses $\sigma_0$ transversally wherever it enters $D$, and by compactness meets $\sigma_0$ finitely
+often. Suppose first that $\gamma$ meets $D$ and $\Omega_0$, and let $\beta$ be an arc of $\gamma$ in $\Omega_0$ with
+endpoints on $\sigma_0$. If $\beta$ is not simple, its first return to one of its own points closes a geodesic monogon
+in $\overline{\Omega_0}$, excluded as below. If $\beta$ is simple, it cuts the disc $\overline{\Omega_0}$ in two; arc $3$, which $\beta$
+avoids, lies in one of them, and the other, $\Delta$, is a disc without punctures bounded by $\beta$ and an arc of
+$\sigma_0$. Gauss-Bonnet on $\Delta$, with exterior angles $\theta_1,\theta_2\in(0,\pi)$ and the arc of $\sigma_0$ curving
+away from $\Delta$, gives $\int_\Delta K=2\pi-\theta_1-\theta_2+\int_{\sigma_0\cap\partial\Delta}k_g>0$, against (I).
+Suppose next that $\gamma\subset\overline{\Omega_0}$; it may touch $\sigma_0$ from outside at finitely many points.
+Then $\gamma$ lies in the annulus $\overline{\Omega_0}\setminus$arc $3$, in its core class. If $\gamma$ is simple it
+bounds with $\sigma_0$ an annulus $A'$, or, if it touches $\sigma_0$, a chain of discs with two cusps each (exterior
+angles $\pi$); in both cases Gauss-Bonnet gives $\int K=\oint_{\sigma_0}k_g>0$ ($k_g$ towards $C_{12}$), against (I).
+If not, $\gamma$ contains a geodesic monogon $\beta$ with interior angle $\varphi\in(0,\pi)$ (the same evaluations hold
+if its corner lies on $\sigma_0$): if $\beta$ bounds a disc without punctures,
+$\int K=\pi+\varphi>0$; otherwise $\beta$ is in the core class and bounds with $\sigma_0$ an annulus with
+$\int K=\oint_{\sigma_0}k_g+\pi-\varphi>0$; both contradict (I).
+
+\emph{The chain.} Let $k$ be the largest index with $\gamma$ in the closed disc bounded by $\sigma_k$. If $k=N$, let $p$
+be a point of $\gamma$ of largest $\rho$; there $\gamma$ touches the circle $\rho=\rho(p)$ from the side of $C_{12}$,
+which Lemma~\ref{lem:F} with $\tau=-\rho$ and condition C excludes. If $k<N$, some point $q$ of $\gamma$ is not inside
+$\sigma_{k+1}$. The image of $\Phi_k$ is the closed annulus between $\sigma_k$ and the parallel at time $T_k$ (by
+injectivity), and it contains every point inside $\sigma_k$ and not inside $\sigma_{k+1}$; on it $t=\Phi_k^{-1}$ is a
+$C^2$ function with $|\nabla t|=1$ ($G>0$: no focal points) whose level sets are the parallels, convex towards increasing
+$t$ ($\mathrm{Hess}\,t(v,v)=G'/G<0$ on unit tangents). Let $p$ minimise $t$ on the part of $\gamma$ in the annulus.
+Then $t(p)\le t(q)<T_k$, so $\gamma$ stays in the annulus near $p$ and $p$ is a local minimum of $t\circ\gamma$; this
+contradicts Lemma~\ref{lem:F}, in the interior if $t(p)>0$ and at the boundary $\sigma_k$ (where $\gamma$ would touch
+$\sigma_k$ from inside) if $t(p)=0$, $\Phi_k$ extending to small negative $t$.
+\end{proof}
+
+\paragraph{Stutters.} Condition (III) reduces to the normal geodesics of the equator arcs. Let $H$ be an open hemisphere
+and $j$ an equator arc. Suppose the normal geodesics $\nu_s$ of $j$ into $H$ (Fermi coordinates $g=dr^2+G^2ds^2$,
+$G''=-KG$, $G(0)=1$, $G'(0)=0$) form a diffeomorphism of $\{(s,r):0<r<r_{\rm exit}(s)\}$ onto $H$, with $G>0$ and
+$G'>0$. Then $r$ is $C^2$ on $H$, its level sets are convex towards decreasing $r$, and Lemma~\ref{lem:F} with $\tau=-r$
+excludes an interior maximum of $r$ on a geodesic arc in $H$, hence any stutter arc on $j$. Independently, Gauss-Bonnet
+limits the stutters that could occur: when the hemisphere's total positive curvature
+$\Pi_H=\int_HK^+\,dA$ is below $\pi$ there is no geodesic monogon in $H$ ($\int K=\pi+\varphi$), so a stutter arc is
+simple and bounds with the segment of $j$ between its endpoints (which contains no collision) a disc $B$ with
+$\int_BK=\theta_p+\theta_q$; both corner angles are then at most $\Pi_H$. For equal masses $K\le0$ and this recovers the
+absence of stutters \cite[Prop.~2.2]{KLM08}.
+
+\paragraph{Numerical status.} At the five triples $(1,1,0.57)$, $(1,1,0.6)$, $(1,1,2)$, $(1,0.5,0.45)$,
+$(1,0.2,0.19)$, none of which has a waist at any end, (I) is proved and (II), (III) hold numerically, with $\sigma_0$
+and the chain taken from a curve-shortening flow started near the cuff.
+
+(I) is proved by interval arithmetic. In the stereographic chart $\zeta$ centred at a collision $C_{ij}$ the metric is
+$g=2U(1+|\zeta|^2)^{-2}|d\zeta|^2$, and with
+$F=|\zeta|^2U(1+|\zeta|^2)^{-2}=m_im_j/(2a_{ij}(1+|\zeta|^2))+V|\zeta|^2(1+|\zeta|^2)^{-2}$, where
+$r_{ij}^2=a_{ij}(1-c_{ij}\cdot w)$ and $V$ is the potential of the other two pairs, $F$ is rational, positive and smooth
+at $\zeta=0$, and $K<0$ if and only if $Q=F\,\Delta F-|\nabla F|^2>0$ (as $\log|\zeta|^2$ is harmonic). We enclose $Q$
+over boxes with second-order interval jets in outward-rounded IEEE arithmetic (only $+,-,\times,/$ and $\sqrt{}$, all
+correctly rounded), the masses and all derived constants being intervals. The boxes cover, in the chart of each
+collision, its Voronoi cell (the points no farther from it than from the other two), with adaptive refinement; a box is
+set aside when it lies wholly outside the cell or wholly inside the polygon $\sigma_0$. At all five triples every
+remaining box has $Q>0$ (between $1.7\cdot10^4$ and $9.3\cdot10^5$ boxes per triple), so $K<0$ on the whole region
+outside $\sigma_0$, the collisions $C_{13}$, $C_{23}$ included; with a small loop in place of $\sigma_0$ the same
+procedure fails, as it must. With the masses as wide intervals the same proof covers whole intervals of masses at
+once: with the single loop $\sigma_0$ of $(1,1,0.57)$, $K<0$ outside $\sigma_0$ for every mass triple $(1,1,m_3)$ with
+$0.567\le m_3\le1.07$ ($173$ mass intervals of width at most about $0.005$). On that range the loop is convex for the
+metric of each mass, encloses $C_{12}$ only and avoids arc $3$ (checked numerically at $300$ masses), so it is a
+loop $\sigma_0$ as in the conditions; for $m_3$ above about $1.077$ it is no longer convex. The test whether a box lies
+inside $\sigma_0$ uses floating point with a margin. Numerically, the maximum of $K$ outside
+$\sigma_0$, on a
+$400\times800$ grid away from caps of radius $0.01$ about the collisions, is between $-6.1\cdot10^{-4}$ and
+$-1.4\cdot10^{-5}$ (the last value at $(1,1,2)$ is attained at the edge of the caps about $C_{13}$ and $C_{23}$,
+where $\kappa_2\rho^2=-1.3\cdot10^{-5}$; the caps $10^{-3}\le\rho\le0.1$ about all three collisions are checked
+with (III) and have $K<0$, and below $10^{-3}$ Lemma~\ref{lem:K} applies), and $\sigma_0$ avoids arc $3$. (II): chains
+of $261$, $153$, $43$, $35$ and $659$ loops, polygons of $200$ points with positive discrete curvature, the loops
+saved whenever some point had moved a $g$-distance $0.01$ ($0.001$ at $(1,0.2,0.19)$, where the loops pass near the
+very curved end $23$); for every pair one $T_k$, all $200$ normals keep $G'\le-2.9\cdot10^{-4}$ on $[0,T_k]$, the
+parallels are simple and nested at $21$ times in $[0,T_k]$ (between the samples a pair of double points could only
+appear and disappear through a tangency of two sheets), the parallel at $T_k$ lies inside the next loop, and
+condition C holds out to the last loop. A sparser chain fails: the normals from the flat parts of a loop must then run
+until the slowest normal arrives and lose their convexity, which is why the hypothesis is stated with one time per
+loop. (III): on each of the three arcs, $160$ normals ($100$ from the arc outside caps of radius $0.05$ and $30$ from each
+cap down to $\rho=10^{-3}$) keep $G\ge1$ and $G'>0$ and leave the hemisphere in monotone order; the normals from inside
+a cap stay within $0.1$ of their collision, where $K<0$. The normals that run into the cap of another collision are
+followed further: each either crosses the equator inside the cap or goes down the end (at $\rho<0.01$, moving inwards
+at an angle too steep to turn back by the Clairaut relation of the near-cylinder end), and none returns to the
+hemisphere; at $(1,1,0.57)$, for instance, $10$, $10$ and $28$ normals per arc do so, $3$, $3$ and $4$ of them crossing
+the equator. Below $\rho=10^{-3}$ we rely on the near-cylinder form of Lemma~\ref{lem:E}, without a
+quantitative estimate. $\Pi_H$ is between $3.8\cdot10^{-4}$ and $1.5\cdot10^{-2}$. With a waist, at $(1,1,0.5)$, the
+same check fails on the two arcs ending at $C_{12}$ and passes on the third. The integrations are fixed-step
+fourth-order Runge-Kutta in arclength, each repeated with half the step, and both step sizes must pass. Conditions
+(II) and (III) are numerical evidence in double precision; making them rigorous, and covering all masses rather than
+these triples, is left open.
+The band just above $m^*$, where all margins vanish with $\kappa_2$, needs a separate argument.
+
+\paragraph{The whole mass triangle.} Beyond these triples we mapped the triangle numerically
+(Figure~\ref{fig:map}). At $741$ mass triples on a grid ($m_i=k_i/40$), we minimised the $g$-length over loops around
+$C_{12}$, star-shaped in the chart about $C_{12}$ with the logarithm of the radius a trigonometric polynomial of degree
+$12$, from three starting circles, with the other two collisions kept outside. By Theorem~\ref{thm:exist} a loop
+shorter than the cuff already gives a closed geodesic. Such a loop is found at exactly the $198$ triples with a waist at
+the end $12$, where the minimisation stops on the orbit; at the other $543$ every minimisation slides into the end with
+length above the cuff, and no local minimum away from the end appears. The search sees minimisers and local minima
+only, not closed geodesics of saddle type; the map comes from the research script \texttt{tools/words\_T0.py}
+and has no independent checker.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.5\textwidth, axis equal image, hide axis, xmin=-0.05, xmax=1.05, ymin=-0.08, ymax=0.92]
+\addplot[black] table {fig/triangle.dat};
+\addplot[fill=red!15, draw=red] table {fig/waist_12.dat};
+\addplot[only marks, mark=*, mark size=0.7pt, red] table {fig/T0_yes.dat};
+\addplot[only marks, mark=*, mark size=0.5pt, gray] table {fig/T0_no.dat};
+\node[font=\scriptsize, anchor=north] at (axis cs:0,0) {$m_1$};
+\node[font=\scriptsize, anchor=north] at (axis cs:1,0) {$m_2$};
+\node[font=\scriptsize, anchor=south] at (axis cs:0.5,0.866) {$m_3$};
+\end{axis}
+\end{tikzpicture}
+\caption{The class $(12)$ over the mass triangle ($m_1+m_2+m_3=1$). Red dots: a loop shorter than the cuff was
+found (the class is realised); grey dots: every length minimisation slid into the end. Shaded: the waist region
+$m_3^2(m_1+m_2)^3<m_1^2m_2^2M$ of Corollary~\ref{cor:waist}.}
+\label{fig:map}
+\end{figure}
+
+\section{Verification}
+
+The supplement contains checkers that share no code with the research tools, each ending with ALL PASS:
+\begin{itemize}
+\item the initial conditions of the nine orbits of Table~\ref{tab:orbits} to full double precision, re-integrated with
+a fixed-step Runge-Kutta scheme (two step sizes) to confirm the invariants, the shape closure, the action and the
+syzygy word;
+\item the reversible search of Section~\ref{sec:orbits} at nineteen mass triples, in a regularised time and at two
+step sizes, with
+every sign change of the shooting function refined to tell a root from a jump between branches: a root at the start
+parameter of each of the nine orbits of Table~\ref{tab:orbits}, and none at the ten other triples;
+\item a symbolic check that the curvature criterion is equivalent to the mass condition, gives $8m^2-m-2=0$ for masses
+$(1,1,m)$, and is the limit at the collision of the sign function of \cite[(7.13)]{M05}; a configuration-space
+computation of the loop lengths around $C_{12}$ on both sides of the threshold, which also confirms the size of
+$\kappa_2$ through Corollary~\ref{cor:waist}; exact rational expansions of $K$ at a collision;
+\item for condition (I) at the five triples and on the family $(1,1,m)$, $0.567\le m\le1.07$, the
+interval-arithmetic proof described in Section~\ref{sec:converse}, with its negative control;
+\item for the converse at the five triples of Section~\ref{sec:converse}, the chains of convex loops and a checker with
+its own curvature formula, charts and integrator that re-checks Lemma~\ref{lem:K}, the absence of a waist at every
+end, (I), (II) in the form stated, condition C, (III) with the end normals, and $\Pi_H$, together with the negative
+control $(1,1,0.5)$.
+\end{itemize}
+Two further checkers recompute the traces and rotations of Table~\ref{tab:orbits} (the rotations also as half the
+enclosed solid angle) and the birth law: $A_4(m^*)$, $C$, the ratios quoted in Section~\ref{sec:orbits}, and
+$S<\min_\rho\ell$ at all nine masses.
+
+The numerical searches, the symbolic and interval computations and the verification scripts were carried out with the
+assistance of a large language model. All results are reproducible from the scripts and certificates supplied; the
+checkers were written independently of the research code, so that they do not share the assumptions of the code that
+produced the results.
+
+\begin{thebibliography}{99}
+\bibitem{ACS12} A.~Albouy, H.~E.~Cabral, A.~A.~Santos, Some problems on the classical $n$-body problem,
+\emph{Celest. Mech. Dyn. Astr.} 113 (2012) 369-375, arXiv:1305.3191.
+\bibitem{BH99} M.~R.~Bridson, A.~Haefliger, \emph{Metric Spaces of Non-positive Curvature}, Springer, 1999.
+\bibitem{CGHLM24} R.~Calleja, C.~Garc\'ia-Azpeitia, O.~H\'enot, J.-P.~Lessard, J.~D.~Mireles James, From the Lagrange
+triangle to the figure eight choreography: proof of Marchal's conjecture, arXiv:2406.17564 (2024).
+\bibitem{DPS17} V.~Dmitra\v{s}inovi\'c, L.~V.~Petrovi\'c, M.~\v{S}uvakov, Periodic three-body orbits with vanishing
+angular momentum in the Jacobi-Poincar\'e strong potential, \emph{J. Phys. A} 50 (2017) 435102, arXiv:1710.03687.
+\bibitem{DM16} H.~R.~Dullin, R.~Montgomery, Syzygies in the two center problem, \emph{Nonlinearity} 29 (2016) 1212-1237,
+arXiv:1509.05220.
+\bibitem{Gor75} W.~B.~Gordon, Conservative dynamical systems involving strong forces, \emph{Trans. Amer. Math. Soc.}
+204 (1975) 113-135.
+\bibitem{Gor77} W.~B.~Gordon, A minimizing property of Keplerian orbits, \emph{Amer. J. Math.} 99 (1977) 961-971.
+\bibitem{KLM08} S.~R.~Kaplan, M.~Levi, R.~Montgomery, Making the moon reverse its orbit, or, stuttering in the planar
+three-body problem, \emph{Discrete Contin. Dyn. Syst. Ser. B} 10 (2008) 569-595.
+\bibitem{Kli78} W.~Klingenberg, \emph{Lectures on Closed Geodesics}, Springer, 1978.
+\bibitem{KS16} G.~S.~Krishnaswami, H.~Senapati, Curvature and geodesic instabilities in a geometrical approach to the
+planar three-body problem, \emph{J. Math. Phys.} 57 (2016) 102901, arXiv:1606.05091.
+\bibitem{LJL18} X.~Li, Y.~Jing, S.~Liao, Over a thousand new periodic orbits of a planar three-body system with unequal
+masses, \emph{Publ. Astron. Soc. Japan} 70 (2018) 64, doi:10.1093/pasj/psy057, arXiv:1709.04775.
+\bibitem{MM15} R.~Moeckel, R.~Montgomery, Realizing all reduced syzygy sequences in the planar three-body problem,
+\emph{Nonlinearity} 28 (2015) 1919-1935, arXiv:1412.2263.
+\bibitem{Mon96} R.~Montgomery, The geometric phase of the three-body problem, \emph{Nonlinearity} 9 (1996) 1341-1360,
+arXiv:dg-ga/9510005.
+\bibitem{Mon98} R.~Montgomery, The $N$-body problem, the braid group, and action-minimizing periodic solutions,
+\emph{Nonlinearity} 11 (1998) 363-376.
+\bibitem{M05} R.~Montgomery, Hyperbolic pants fit a three-body problem, \emph{Ergodic Theory Dynam. Systems} 25 (2005)
+921-947; arXiv:math/0405014 (``Fitting hyperbolic pants to a three-body problem'').
+\bibitem{Moo93} C.~Moore, Braids in classical dynamics, \emph{Phys. Rev. Lett.} 70 (1993) 3675-3679.
+\end{thebibliography}
+
+\end{document}

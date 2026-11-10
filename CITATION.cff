@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "A waist at the binary collision: two-letter syzygy orbits of the strong-force three-body problem"
+authors:
+  - family-names: Stavriianov
+    given-names: Oleksii
+    orcid: "https://orcid.org/0009-0002-8504-3626"
+type: software
+version: "1.0"
+date-released: "2026-11-10"
+license: MIT
+repository-code: "https://github.com/Ratatosk32/three-body-waist"
+keywords:
+  - three-body problem
+  - strong force
+  - syzygy
+  - Jacobi-Maupertuis metric
+  - closed geodesics
+  - computer-assisted proof
+preferred-citation:
+  type: article
+  title: "A waist at the binary collision: two-letter syzygy orbits of the strong-force three-body problem"
+  authors:
+    - family-names: Stavriianov
+      given-names: Oleksii
+      orcid: "https://orcid.org/0009-0002-8504-3626"
+  year: 2026
+  notes: "Preprint, Zenodo"

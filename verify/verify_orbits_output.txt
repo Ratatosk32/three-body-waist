@@ -1,0 +1,11 @@
+masses                  S claimed      S checked   closure     word                P, L, E  verdict
+(1, 1, 0.4)          5.6342554918   5.6342554918   1.2e-10       12   3e-16,  1e-16,  0e+00  PASS  (I - 1 0e+00, RK4 step-halving difference 2e-12, min pair distance 0.635)
+(1, 1, 0.5)          6.1597496557   6.1597496557   5.5e-11       12   1e-16,  0e+00,  0e+00  PASS  (I - 1 0e+00, RK4 step-halving difference 8e-13, min pair distance 0.792)
+(1, 1, 0.52)         6.2197385980   6.2197385980   2.1e-10       12   0e+00,  1e-16,  0e+00  PASS  (I - 1 2e-16, RK4 step-halving difference 2e-12, min pair distance 0.696)
+(1, 1, 0.53)         6.2429769247   6.2429769247   2.7e-10       12   2e-16,  1e-16,  3e-16  PASS  (I - 1 0e+00, RK4 step-halving difference 2e-13, min pair distance 0.633)
+(1, 1, 0.54)         6.2613331277   6.2613331277   4.3e-10       12   1e-16,  0e+00,  0e+00  PASS  (I - 1 0e+00, RK4 step-halving difference 8e-13, min pair distance 0.556)
+(1, 1, 0.55)         6.2744359523   6.2744359523   7.2e-10       12   2e-16,  0e+00,  0e+00  PASS  (I - 1 2e-16, RK4 step-halving difference 2e-13, min pair distance 0.453)
+(1, 1, 0.56)         6.2817961704   6.2817961704   1.9e-09       12   1e-16,  1e-16,  1e-16  PASS  (I - 1 0e+00, RK4 step-halving difference 6e-12, min pair distance 0.293)
+(1, 0.5, 0.3)        3.4385697805   3.4385697805   1.3e-11       12   0e+00,  0e+00,  0e+00  PASS  (I - 1 0e+00, RK4 step-halving difference 2e-13, min pair distance 0.768)
+(1, 0.2, 0.15)       1.5489069692   1.5489069692   7.2e-12       12   0e+00,  0e+00,  2e-16  PASS  (I - 1 2e-16, RK4 step-halving difference 7e-13, min pair distance 0.829)
+ALL PASS

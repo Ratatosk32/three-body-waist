@@ -1,0 +1,21 @@
+name: release
+
+# A tag v* creates a GitHub release with the paper attached; the Zenodo integration archives the release and mints a DOI.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          files: paper/main.pdf
+          generate_release_notes: true

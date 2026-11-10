@@ -1,0 +1,22 @@
+masses (1.0, 1.0, 0.57): (I) K < 0 outside sigma_0 PROVED
+  chart of collision C12 (square half-side 1.5): Q > 0 proved on 0 boxes, 3172 outside the cell, 924 inside sigma_0, deepest level 1; all covered
+  chart of collision C13 (square half-side 1.5): Q > 0 proved on 9726 boxes, 3706 outside the cell, 1362 inside sigma_0, deepest level 6; all covered
+  chart of collision C23 (square half-side 1.5): Q > 0 proved on 9726 boxes, 3706 outside the cell, 1362 inside sigma_0, deepest level 6; all covered
+masses (1.0, 1.0, 0.6): (I) K < 0 outside sigma_0 PROVED
+  chart of collision C12 (square half-side 1.5): Q > 0 proved on 0 boxes, 3180 outside the cell, 916 inside sigma_0, deepest level 1; all covered
+  chart of collision C13 (square half-side 1.5): Q > 0 proved on 10662 boxes, 3734 outside the cell, 1418 inside sigma_0, deepest level 6; all covered
+  chart of collision C23 (square half-side 1.5): Q > 0 proved on 10662 boxes, 3734 outside the cell, 1418 inside sigma_0, deepest level 6; all covered
+masses (1.0, 1.0, 2.0): (I) K < 0 outside sigma_0 PROVED
+  chart of collision C12 (square half-side 1.5): Q > 0 proved on 0 boxes, 3348 outside the cell, 748 inside sigma_0, deepest level 1; all covered
+  chart of collision C13 (square half-side 1.5): Q > 0 proved on 463912 boxes, 5736 outside the cell, 8820 inside sigma_0, deepest level 10; all covered
+  chart of collision C23 (square half-side 1.5): Q > 0 proved on 463912 boxes, 5736 outside the cell, 8820 inside sigma_0, deepest level 10; all covered
+masses (1.0, 0.5, 0.45): (I) K < 0 outside sigma_0 PROVED
+  chart of collision C12 (square half-side 1.5): Q > 0 proved on 0 boxes, 3186 outside the cell, 910 inside sigma_0, deepest level 1; all covered
+  chart of collision C13 (square half-side 1.5): Q > 0 proved on 2706 boxes, 3446 outside the cell, 1070 inside sigma_0, deepest level 4; all covered
+  chart of collision C23 (square half-side 1.5): Q > 0 proved on 14518 boxes, 4148 outside the cell, 1474 inside sigma_0, deepest level 6; all covered
+masses (1.0, 0.2, 0.19): (I) K < 0 outside sigma_0 PROVED
+  chart of collision C12 (square half-side 1.5): Q > 0 proved on 0 boxes, 3122 outside the cell, 974 inside sigma_0, deepest level 1; all covered
+  chart of collision C13 (square half-side 1.5): Q > 0 proved on 908 boxes, 3226 outside the cell, 1096 inside sigma_0, deepest level 4; all covered
+  chart of collision C23 (square half-side 1.5): Q > 0 proved on 38064 boxes, 4682 outside the cell, 2006 inside sigma_0, deepest level 7; all covered
+control: masses (1, 1, 0.57) with a loop of chart radius 0.05 in place of sigma_0: NOT PROVED, AS EXPECTED
+ALL PASS

@@ -1,0 +1,25 @@
+{
+ "description": "Chains of nested convex loops around the collision C_12 for five mass triples without a waist (curve-shortening leaves, saved whenever some point moved a g-distance 0.01 (0.001 at (1,0.2,0.19)), the length dropped by 0.05 or the chart radius shrank by 3 %), as points z of the chart z = (w2, w3) / (1 - w1) of the unit shape sphere (C_12 at z = 0). Checked by verify/verify_converse.py, which reads only the loops.",
+ "masses": {
+  "1,1,0.57": {
+   "leaves": 261,
+   "points_per_leaf": 200
+  },
+  "1,1,0.6": {
+   "leaves": 153,
+   "points_per_leaf": 200
+  },
+  "1,1,2": {
+   "leaves": 43,
+   "points_per_leaf": 200
+  },
+  "1,0.5,0.45": {
+   "leaves": 35,
+   "points_per_leaf": 200
+  },
+  "1,0.2,0.19": {
+   "leaves": 659,
+   "points_per_leaf": 200
+  }
+ }
+}

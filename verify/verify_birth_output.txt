@@ -1,0 +1,21 @@
+A4(m*) = 0.0068967361 (paper 0.0068967), C = 35.12077 (paper 35.12): PASS
+closed forms at m*: A4 = m*^3 / (4 (2 + m*)^2) = 0.00689673608232, C = pi (4 + m*)^2 / (32 m*^5) = 35.1207651: PASS
+threshold point (1, 0.7, 0.46464108): A4 numeric 0.006707825117, closed form m3^3 (m1 + m2)^3 / (32 M^2 m1^2 m2^2) = 0.006707825117: PASS
+threshold point (1, 0.4, 0.31635243): A4 numeric 0.005759897103, closed form m3^3 (m1 + m2)^3 / (32 M^2 m1^2 m2^2) = 0.005759897103: PASS
+threshold point (1, 0.2, 0.17864213): A4 numeric 0.004049322573, closed form m3^3 (m1 + m2)^3 / (32 M^2 m1^2 m2^2) = 0.004049322573: PASS
+threshold point (1, 0.05, 0.048711086): A4 numeric 0.001385461061, closed form m3^3 (m1 + m2)^3 / (32 M^2 m1^2 m2^2) = 0.001385461061: PASS
+m* - m = 0.02    : shortest round loop at rho 0.71183, (c12 - min l) / (m* - m)^2 = 31.934 (paper 31.9): PASS
+m* - m = 0.01    : shortest round loop at rho 0.51716, (c12 - min l) / (m* - m)^2 = 33.3946 (paper 33.4): PASS
+m* - m = 0.005   : shortest round loop at rho 0.37122, (c12 - min l) / (m* - m)^2 = 34.2194 (paper 34.2): PASS
+m* - m = 0.0025  : shortest round loop at rho 0.26459, (c12 - min l) / (m* - m)^2 = 34.6597 (paper 34.7): PASS
+m* - m = 0.00125 : shortest round loop at rho 0.18786, (c12 - min l) / (m* - m)^2 = 34.8875 (paper 34.9): PASS
+masses (1, 1, 0.4)    : S = 5.6342554918 < shortest round loop 5.6718044731 (rho 1.67): PASS
+masses (1, 1, 0.5)    : S = 6.1597496557 < shortest round loop 6.163196088 (rho 1.182); (2 pi - S) / (m* - m)^2 = 28.004 (paper 28.0): PASS
+masses (1, 1, 0.52)   : S = 6.219738598 < shortest round loop 6.2209058066 (rho 1.023); (2 pi - S) / (m* - m)^2 = 29.4808 (paper 29.48): PASS
+masses (1, 1, 0.53)   : S = 6.2429769247 < shortest round loop 6.2435153357 (rho 0.9245); (2 pi - S) / (m* - m)^2 = 30.3617 (paper 30.36): PASS
+masses (1, 1, 0.54)   : S = 6.2613331277 < shortest round loop 6.2615181205 (rho 0.805); (2 pi - S) / (m* - m)^2 = 31.3747 (paper 31.37): PASS
+masses (1, 1, 0.55)   : S = 6.2744359523 < shortest round loop 6.2744710274 (rho 0.6505); (2 pi - S) / (m* - m)^2 = 32.5656 (paper 32.57): PASS
+masses (1, 1, 0.56)   : S = 6.2817961704 < shortest round loop 6.2817972397 (rho 0.4179); (2 pi - S) / (m* - m)^2 = 34.0089 (paper 34.01): PASS
+masses (1, 0.5, 0.3)  : S = 3.4385697805 < shortest round loop 3.4498034685 (rho 1.437): PASS
+masses (1, 0.2, 0.15) : S = 1.5489069692 < shortest round loop 1.5551235277 (rho 1.384): PASS
+ALL PASS

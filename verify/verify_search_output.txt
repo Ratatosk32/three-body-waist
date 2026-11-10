@@ -1,0 +1,20 @@
+masses (1, 1, 0.4)       valid starts 1464/1464 of 2000; roots at s = 0.62294 (half step: 0.62294); sign jumps between branches 0/0; certificate s = 0.62294; expected a root: PASS
+masses (1, 1, 0.5)       valid starts 1386/1386 of 2000; roots at s = 0.46450 (half step: 0.46450); sign jumps between branches 0/0; certificate s = 0.46450; expected a root: PASS
+masses (1, 1, 0.52)      valid starts 1370/1370 of 2000; roots at s = 0.40845 (half step: 0.40845); sign jumps between branches 0/0; certificate s = 0.40845; expected a root: PASS
+masses (1, 1, 0.53)      valid starts 1362/1362 of 2000; roots at s = 0.37292 (half step: 0.37292); sign jumps between branches 0/0; certificate s = 0.37292; expected a root: PASS
+masses (1, 1, 0.54)      valid starts 1354/1354 of 2000; roots at s = 0.32913 (half step: 0.32913); sign jumps between branches 0/0; certificate s = 0.32913; expected a root: PASS
+masses (1, 1, 0.55)      valid starts 1345/1345 of 2000; roots at s = 0.27122 (half step: 0.27122); sign jumps between branches 0/0; certificate s = 0.27122; expected a root: PASS
+masses (1, 1, 0.56)      valid starts 1337/1337 of 2000; roots at s = 0.18051 (half step: 0.18051); sign jumps between branches 0/0; certificate s = 0.18051; expected a root: PASS
+masses (1, 0.5, 0.3)     valid starts 1330/1330 of 2000; roots at s = 0.53116 (half step: 0.53116); sign jumps between branches 0/0; certificate s = 0.53116; expected a root: PASS
+masses (1, 0.2, 0.15)    valid starts 1231/1231 of 2000; roots at s = 0.50818 (half step: 0.50818); sign jumps between branches 0/0; certificate s = 0.50818; expected a root: PASS
+masses (1, 1, 0.57)      valid starts 1328/1328 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 1, 0.58)      valid starts 1320/1320 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 1, 0.59)      valid starts 1311/1311 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 1, 0.6)       valid starts 1302/1302 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 1, 0.65)      valid starts 1258/1258 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 1, 0.75)      valid starts 1162/1162 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 0.5, 0.45)    valid starts 1050/1050 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 0.2, 0.19)    valid starts 1027/1027 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (1, 0.3, 0.5)     valid starts 633/633 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+masses (0.5, 0.3, 1)     valid starts 430/430 of 2000; roots at s = none (half step: none); sign jumps between branches 0/0; expected none: PASS
+ALL PASS

@@ -1,0 +1,17 @@
+A1 (p1+p2)^3 - p3 (p1p2+p1p3+p2p3) = m3 [m3^2 (m1+m2)^3 - m1^2 m2^2 M]: PASS
+A2 masses (1,1,m): criterion = 8*m**2 - m - 2; positive root (1+sqrt 65)/16 = 0.5663911093: PASS
+B (1, 1, 0.4)        criterion -1.1200  l - c12 at eps 0.02/0.01/0.005: -2.932e-04 -7.330e-05 -1.833e-05 (ratio 4.00)  waist True  PASS
+B (1, 1, 0.5)        criterion -0.5000  l - c12 at eps 0.02/0.01/0.005: -1.256e-04 -3.141e-05 -7.854e-06 (ratio 4.00)  waist True  PASS
+B (1, 1, 0.56)       criterion -0.0512  l - c12 at eps 0.02/0.01/0.005: -1.254e-05 -3.140e-06 -7.853e-07 (ratio 3.99)  waist True  PASS
+B (1, 1, 0.565)      criterion -0.0112  l - c12 at eps 0.02/0.01/0.005: -2.716e-06 -6.842e-07 -1.714e-07 (ratio 3.97)  waist True  PASS
+B (1, 1, 0.566)      criterion -0.0032  l - c12 at eps 0.02/0.01/0.005: -7.441e-07 -1.912e-07 -4.813e-08 (ratio 3.89)  waist True  PASS
+B (1, 1, 0.567)      criterion +0.0049  l - c12 at eps 0.02/0.01/0.005: +1.230e-06 +3.023e-07 +7.525e-08 (ratio 4.07)  waist False  PASS
+B (1, 1, 0.57)       criterion +0.0292  l - c12 at eps 0.02/0.01/0.005: +7.167e-06 +1.786e-06 +4.463e-07 (ratio 4.01)  waist False  PASS
+B (1, 1, 0.6)        criterion +0.2800  l - c12 at eps 0.02/0.01/0.005: +6.770e-05 +1.692e-05 +4.229e-06 (ratio 4.00)  waist False  PASS
+B (1, 1, 1.0)        criterion +5.0000  l - c12 at eps 0.02/0.01/0.005: +1.047e-03 +2.618e-04 +6.545e-05 (ratio 4.00)  waist False  PASS
+B (1, 1, 2.0)        criterion +28.0000  l - c12 at eps 0.02/0.01/0.005: +4.397e-03 +1.099e-03 +2.749e-04 (ratio 4.00)  waist False  PASS
+B (1, 0.5, 0.3)      criterion -0.1463  l - c12 at eps 0.02/0.01/0.005: -7.860e-05 -1.965e-05 -4.912e-06 (ratio 4.00)  waist True  PASS
+B (1, 0.5, 0.45)     criterion +0.1959  l - c12 at eps 0.02/0.01/0.005: +9.721e-05 +2.430e-05 +6.075e-06 (ratio 4.00)  waist False  PASS
+B (1, 0.2, 0.15)     criterion -0.0151  l - c12 at eps 0.02/0.01/0.005: -1.514e-05 -3.785e-06 -9.463e-07 (ratio 4.00)  waist True  PASS
+B (1, 0.2, 0.19)     criterion +0.0068  l - c12 at eps 0.02/0.01/0.005: +6.596e-06 +1.649e-06 +4.122e-07 (ratio 4.00)  waist False  PASS
+ALL PASS
